@@ -1,16 +1,21 @@
-## Hi there 👋
+# Ma Revente V1
 
-<!--
-**tmthomasmm-star/tmthomasmm-star** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Prototype Android privé pour tester la gestion simple d'un stock de seconde main.
 
-Here are some ideas to get you started:
+## Fonctions
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- CA, marge brute et gain estimé par jour, semaine ou mois.
+- Références automatiques N0001, N0002, etc.
+- Ajout individuel ou en série avec prix d'achat unitaire.
+- Recherche par référence, nom, plateforme ou emplacement.
+- Vente simple ou groupée.
+- Coûts d'emballage configurables.
+- Annulation ou retour avec réintégration et recalcul automatique.
+- Données locales, sans compte.
+
+## Limites volontaires
+
+- Pas de publicité, paiement, cloud ou connexion aux plateformes.
+- La photo des articles viendra après validation du parcours principal.
+
+Kotlin, Jetpack Compose, Android 8.0 minimum.
