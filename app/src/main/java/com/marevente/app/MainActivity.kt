@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -39,9 +39,9 @@ private data class Costs(val pouch:Double=.18,val label:Double=.04,val protectio
 private class Store(c:Context){
  private val p=c.getSharedPreferences("ma_revente_v1",Context.MODE_PRIVATE)
  fun next()=p.getInt("next",1); fun next(v:Int){p.edit().putInt("next",v).apply()}
-fun items(): List<StockItem> = try{val a=JSONArray(p.getString("items","[]"));(0 until a.length()).map{i->a.getJSONObject(i).run{StockItem(getLong("id"),getString("ref"),getString("name"),getDouble("cost"),optString("location"),optString("platform"),getLong("created"),optBoolean("sold"))}}}catch(_:Exception){emptyList()}
+ fun items():List<StockItem>=try{val a=JSONArray(p.getString("items","[]"));(0 until a.length()).map{i->a.getJSONObject(i).run{StockItem(getLong("id"),getString("ref"),getString("name"),getDouble("cost"),optString("location"),optString("platform"),getLong("created"),optBoolean("sold"))}}}catch(_:Exception){emptyList()}
  fun items(v:List<StockItem>){val a=JSONArray();v.forEach{x->a.put(JSONObject().apply{put("id",x.id);put("ref",x.ref);put("name",x.name);put("cost",x.cost);put("location",x.location);put("platform",x.platform);put("created",x.created);put("sold",x.sold)})};p.edit().putString("items",a.toString()).apply()}
- fun sales(): List<Sale> = try{val a=JSONArray(p.getString("sales","[]"));(0 until a.length()).map{i->a.getJSONObject(i).run{val z=getJSONArray("ids");Sale(getLong("id"),(0 until z.length()).map{z.getLong(it)},getDouble("amount"),getDouble("fees"),getDouble("packing"),optString("platform"),getLong("created"),optBoolean("active",true),optBoolean("keep"))}}}catch(_:Exception){emptyList()}
+ fun sales():List<Sale>=try{val a=JSONArray(p.getString("sales","[]"));(0 until a.length()).map{i->a.getJSONObject(i).run{val z=getJSONArray("ids");Sale(getLong("id"),(0 until z.length()).map{z.getLong(it)},getDouble("amount"),getDouble("fees"),getDouble("packing"),optString("platform"),getLong("created"),optBoolean("active",true),optBoolean("keep"))}}}catch(_:Exception){emptyList()}
  fun sales(v:List<Sale>){val a=JSONArray();v.forEach{x->a.put(JSONObject().apply{put("id",x.id);put("ids",JSONArray(x.itemIds));put("amount",x.amount);put("fees",x.fees);put("packing",x.packing);put("platform",x.platform);put("created",x.created);put("active",x.active);put("keep",x.keepPacking)})};p.edit().putString("sales",a.toString()).apply()}
  fun costs()=Costs(p.getFloat("pouch",.18f).toDouble(),p.getFloat("label",.04f).toDouble(),p.getFloat("protection",.20f).toDouble(),p.getFloat("box",.55f).toDouble())
  fun costs(x:Costs){p.edit().putFloat("pouch",x.pouch.toFloat()).putFloat("label",x.label.toFloat()).putFloat("protection",x.protection.toFloat()).putFloat("box",x.box.toFloat()).apply()}
