@@ -1,0 +1,44 @@
+name: Installer Ma Revente V1
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer la V1
+        run: |
+          if [ -f Ma-Revente-V1.zip ]; then
+            unzip -o Ma-Revente-V1.zip
+            rm Ma-Revente-V1.zip
+            git config user.name "actions-user"
+            git config user.email "actions@github.com"
+            git add -A
+            git commit -m "Installer Ma Revente V1"
+            git push
+          fi
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Construire APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ma-Revente-V1-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
