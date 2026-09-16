@@ -1,4 +1,4 @@
-name: Installer Ma Revente V1
+name: Installer Ma Revente V1.1
 
 on:
   push:
@@ -14,15 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installer la V1
+      - name: Installer la V1.1
         run: |
-          if [ -f Ma-Revente-V1.zip ]; then
-            unzip -o Ma-Revente-V1.zip
-            rm Ma-Revente-V1.zip
+          if [ -f Ma-Revente-V1-1-CORRIGEE.zip ]; then
+            unzip -o Ma-Revente-V1-1-CORRIGEE.zip
+            rm Ma-Revente-V1-1-CORRIGEE.zip
             git config user.name "actions-user"
             git config user.email "actions@github.com"
             git add -A
-            git commit -m "Installer Ma Revente V1"
+            git commit -m "Installer Ma Revente V1.1"
             git push
           fi
 
@@ -40,5 +40,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Ma-Revente-V1-APK
+          name: Ma-Revente-V1-1-APK
           path: app/build/outputs/apk/debug/app-debug.apk
