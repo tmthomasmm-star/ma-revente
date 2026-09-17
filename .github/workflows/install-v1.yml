@@ -1,4 +1,4 @@
-name: Installer Ma Revente V1.1
+name: Installer Ma Revente V2
 
 on:
   push:
@@ -14,16 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installer la V1.1
+      - name: Préparer la V2
         run: |
-          if [ -f Ma-Revente-V1-1-CORRIGEE.zip ]; then
-            unzip -o Ma-Revente-V1-1-CORRIGEE.zip
-            rm Ma-Revente-V1-1-CORRIGEE.zip
-            git config user.name "actions-user"
-            git config user.email "actions@github.com"
-            git add -A
-            git commit -m "Installer Ma Revente V1.1"
-            git push
+          if [ -f Ma-Revente-V2.zip ]; then
+            unzip -o Ma-Revente-V2.zip
+            rm Ma-Revente-V2.zip
           fi
 
       - uses: actions/setup-java@v5
@@ -38,7 +33,15 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
+      - name: Enregistrer la V2
+        run: |
+          git config user.name "actions-user"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Installer Ma Revente V2" || true
+          git push
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Ma-Revente-V1-1-APK
+          name: Ma-Revente-V2-APK
           path: app/build/outputs/apk/debug/app-debug.apk
