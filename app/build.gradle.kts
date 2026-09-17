@@ -10,21 +10,10 @@ android {
         applicationId = "com.marevente.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0-test"
+        versionCode = 3
+        versionName = "2.0.0-test"
     }
     buildFeatures { compose = true }
-    signingConfigs {
-        create("development") {
-            storeFile = file("dev-signing.jks")
-            storePassword = "duelflashdev"
-            keyAlias = "duelflash-dev"
-            keyPassword = "duelflashdev"
-        }
-    }
-    buildTypes {
-        getByName("debug") { signingConfig = signingConfigs.getByName("development") }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
